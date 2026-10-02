@@ -1,0 +1,46 @@
+# --- Private working notes (see D-013) ---
+CLAUDE.md
+docs/DECISIONS.md
+
+# --- User data: scan results, databases, reports (never commit; see D-007, D-009) ---
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+*.db-wal
+*.db-shm
+scans/
+reports/
+*.report.html
+*.pcap
+*.pcapng
+
+# --- Keys and secrets ---
+.env
+.env.*
+*.key
+*.pem
+*.p12
+*.pfx
+secrets/
+
+# --- Python and uv ---
+__pycache__/
+*.py[cod]
+.venv/
+build/
+dist/
+*.egg-info/
+
+# --- Test and lint caches ---
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# --- Editor and OS clutter ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

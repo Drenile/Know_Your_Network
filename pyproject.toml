@@ -1,0 +1,70 @@
+[project]
+name = "know-your-network"
+version = "0.0.1"
+description = "A local-first home network scanner and security auditor for non-technical people."
+readme = "README.md"
+license = "GPL-3.0-only"
+license-files = ["LICENSE"]
+requires-python = ">=3.14"
+# Runtime libraries are added only when a milestone needs them (D-005).
+dependencies = []
+
+[project.scripts]
+kyn = "kyn.__main__:main"
+
+[dependency-groups]
+# Development tools only; never shipped to users.
+dev = [
+    "bandit>=1.9.4",
+    "mypy>=2.4.0",
+    "pip-audit>=2.10.1",
+    "pytest>=9.1.1",
+    "ruff>=0.16.10",
+]
+
+[build-system]
+requires = ["uv_build>=0.12.22,<0.13"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "kyn"
+
+# ---------------------------------------------------------------- pytest
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = ["-ra", "--strict-markers", "--strict-config", "--import-mode=importlib"]
+
+# ---------------------------------------------------------------- ruff
+[tool.ruff]
+line-length = 88
+target-version = "py314"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = [
+    "E", "W",  # pycodestyle: basic style errors
+    "F",       # pyflakes: unused imports, undefined names
+    "I",       # isort: import order
+    "N",       # pep8-naming
+    "UP",      # pyupgrade: modern Python syntax
+    "B",       # bugbear: likely bugs
+    "S",       # flake8-bandit: security smells
+    "SIM",     # simplify
+    "C4",      # comprehensions
+    "PT",      # pytest style
+    "RUF",     # ruff's own rules
+]
+
+[tool.ruff.lint.per-file-ignores]
+# Plain `assert` is how pytest checks results.
+"tests/**" = ["S101"]
+
+# ---------------------------------------------------------------- mypy
+[tool.mypy]
+strict = true
+files = ["src", "tests"]
+warn_unreachable = true
+
+# ---------------------------------------------------------------- bandit
+[tool.bandit]
+exclude_dirs = ["tests", ".venv"]

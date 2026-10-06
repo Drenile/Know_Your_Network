@@ -63,7 +63,7 @@ select = [
 # ---------------------------------------------------------------- mypy
 [tool.mypy]
 strict = true
-files = ["src", "tests"]
+files = ["src", "tests", "scripts"]
 warn_unreachable = true
 
 # ---------------------------------------------------------------- bandit

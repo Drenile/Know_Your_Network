@@ -1,0 +1,3 @@
+# Keep the manufacturer list byte-for-byte identical on every OS, so its SHA-256
+# fingerprint matches on Windows too (Git would otherwise convert line endings).
+src/kyn/data/manuf -text

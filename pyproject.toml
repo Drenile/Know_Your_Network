@@ -7,7 +7,9 @@ license = "GPL-3.0-only"
 license-files = ["LICENSE"]
 requires-python = ">=3.14"
 # Runtime libraries are added only when a milestone needs them (D-005).
-dependencies = []
+dependencies = [
+    "psutil>=7.2.2",
+]
 
 [project.scripts]
 kyn = "kyn.__main__:main"
@@ -21,6 +23,7 @@ dev = [
     "pre-commit>=4.6.2",
     "pytest>=9.1.1",
     "ruff>=0.16.10",
+    "types-psutil>=7.2.2.20260906",
 ]
 
 [build-system]
@@ -65,6 +68,12 @@ select = [
 strict = true
 files = ["src", "tests", "scripts"]
 warn_unreachable = true
+
+[[tool.mypy.overrides]]
+# Windows-only module: on other OSes everything after its platform check is
+# "unreachable" by design. The Windows CI run type-checks it fully.
+module = "kyn.platform.windows.routes"
+warn_unreachable = false
 
 # ---------------------------------------------------------------- bandit
 [tool.bandit]

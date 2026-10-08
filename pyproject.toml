@@ -70,9 +70,9 @@ files = ["src", "tests", "scripts"]
 warn_unreachable = true
 
 [[tool.mypy.overrides]]
-# Windows-only module: on other OSes everything after its platform check is
+# Windows-only modules: on other OSes everything after its platform check is
 # "unreachable" by design. The Windows CI run type-checks it fully.
-module = "kyn.platform.windows.routes"
+module = ["kyn.platform.windows.routes", "kyn.platform.windows.arp"]
 warn_unreachable = false
 
 # ---------------------------------------------------------------- bandit

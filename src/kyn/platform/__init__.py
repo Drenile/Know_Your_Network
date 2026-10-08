@@ -30,8 +30,9 @@ def discover_devices(scope: ScanScope, interface_name: str) -> list[Device]:
     """Find the devices on the scanned network. Takes about 10 seconds."""
     if sys.platform == "linux":
         from kyn.platform.linux.discovery import discover
+
+        return discover(scope, interface_name)
     else:
         raise UnsupportedPlatformError(
             f"Finding devices on {sys.platform} is not supported yet."
         )
-    return discover(scope, interface_name)

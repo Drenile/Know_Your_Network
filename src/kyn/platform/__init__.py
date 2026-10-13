@@ -27,8 +27,16 @@ def default_gateway() -> IPv4Address | None:
 
 
 def discover_devices(scope: ScanScope, interface_name: str) -> list[Device]:
-    """Find the devices on the scanned network. Takes about 10 seconds."""
-    if sys.platform == "linux":
+    """Find the devices on the scanned network. Takes about 10 seconds.
+
+    Windows picks the adapter from this computer's address in `scope`, so it doesn't
+    need `interface_name`.
+    """
+    if sys.platform == "win32":
+        from kyn.platform.windows.discovery import discover as discover_windows
+
+        return discover_windows(scope)
+    elif sys.platform == "linux":
         from kyn.platform.linux.discovery import discover
 
         return discover(scope, interface_name)

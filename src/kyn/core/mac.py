@@ -39,6 +39,13 @@ class MacAddress:
             raise MacAddressError(f"{text!r} is not a MAC address.")
         return cls(int(text.replace(":", "").replace("-", ""), 16))
 
+    @classmethod
+    def from_bytes(cls, data: bytes) -> MacAddress:
+        """Build from exactly 6 raw bytes, as OS functions return them."""
+        if len(data) != BITS // 8:
+            raise MacAddressError(f"Expected 6 bytes, got {len(data)}.")
+        return cls(int.from_bytes(data, "big"))
+
     @property
     def is_locally_administered(self) -> bool:
         """True for addresses a device made up itself, e.g. private Wi-Fi addresses."""

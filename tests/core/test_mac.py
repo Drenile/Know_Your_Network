@@ -44,6 +44,17 @@ def test_refuses_numbers_outside_48_bits(value: int) -> None:
         MacAddress(value)
 
 
+def test_from_bytes_keeps_byte_order() -> None:
+    mac = MacAddress.from_bytes(bytes([0x3C, 0x22, 0xFB, 0x1A, 0x2B, 0x3C]))
+    assert str(mac) == "3C:22:FB:1A:2B:3C"
+
+
+@pytest.mark.parametrize("data", [b"", bytes(5), bytes(7)])
+def test_from_bytes_refuses_wrong_length(data: bytes) -> None:
+    with pytest.raises(MacAddressError):
+        MacAddress.from_bytes(data)
+
+
 @pytest.mark.parametrize(
     ("text", "private", "multicast"),
     [

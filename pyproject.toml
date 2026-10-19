@@ -9,6 +9,7 @@ requires-python = ">=3.14"
 # Runtime libraries are added only when a milestone needs them (D-005).
 dependencies = [
     "psutil>=7.2.2",
+    "rich>=15.0.0",
 ]
 
 [project.scripts]
